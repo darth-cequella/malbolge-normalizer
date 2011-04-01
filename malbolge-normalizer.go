@@ -126,35 +126,38 @@ func expand(malbolgeFile string) {
 	//Content readed, let's extend content from normalized version
 	opContent := ""
 	for i,b := range content {
-		var aux byte
+		var op int
 
 		switch(b){
 			case 'i':
-				aux = byte(4)
+				op = 4
 			case '<':
-				aux = byte(5)
+				op = 5
 			case '/':
-				aux = byte(23)
+				op = 23
 			case '*':
-				aux = byte(29)
+				op = 39
 			case 'j':
-				aux = byte(40)
+				op = 40
 			case 'p':
-				aux = byte(62)
+				op = 62
 			case 'o':
-				aux = byte(68)
+				op = 68
 			case 'v':
-				aux = byte(81)
+				op = 81
+			default:
+				continue
 		}
 
-		aux -= byte(i)
-		if int(aux) < 33 {
-			aux += byte(94)
-		} else if int(aux) > 126 {
-			 aux -= byte(94)
+		op -= i
+		for op < 33 {
+			op += 94
+		}
+		for op > 126 {
+			 op -= 94
 		}
 
-		opContent += string(aux)
+		opContent += string( op )
 	}
 	
 	fmt.Println(opContent)
