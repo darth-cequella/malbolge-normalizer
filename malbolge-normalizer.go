@@ -53,7 +53,7 @@ func normalize(malbolgeFile string) {
 		content[i] += byte(i%94)
 		
 		aux := op[b]
-		if aux == 0 { aux = 111 }
+		if aux == 0 { aux = byte('o') }
 		content[i] = aux
 	}
 	
